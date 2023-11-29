@@ -1,0 +1,9 @@
+<button (click)="navigateBack()">Go Back</button>
+
+<div *ngIf="product">
+    <h1>{{product.name}}</h1>
+    <p> {{product.description}}</p>
+    <p>Price: {{product.price}}</p>
+    <button (click)="navigateToEdit(product.id)">Edit Product</button>
+    <button (click)="deleteProductById(product.id)">Delete Product</button>
+</div>

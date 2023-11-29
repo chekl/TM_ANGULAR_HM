@@ -1,0 +1,8 @@
+<button (click)="navigateBack()">Go Back</button>
+
+<form >
+    <input type="text" name="name" placeholder="name" [(ngModel)]="newProduct.name">
+    <input type="text" name="description" placeholder="description" [(ngModel)]="newProduct.description">
+    <input type="number"  name="price" placeholder="price" [(ngModel)]="newProduct.price">
+    <button (click)="isEdit ? updateProduct() :addProduct()">Create Product</button>
+</form>
