@@ -1,14 +1,11 @@
+import { ITag } from '../tag/tag.model';
+
 export interface IProduct {
   id: string;
   name: string;
   description: string;
   price: number;
   tags: ITag[];
-}
-
-export interface ITag {
-  title: string;
-  color: string;
 }
 
 export class Product implements IProduct {

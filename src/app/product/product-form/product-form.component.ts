@@ -3,6 +3,9 @@ import { UUID } from 'angular2-uuid';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ProductsService } from '../services/products.service';
 import { IProduct, Product } from '../product.model';
+import { TagsService } from '../../tag/services/tags.service';
+import { Observable } from 'rxjs';
+import { ITag } from '../../tag/tag.model';
 
 @Component({
   selector: 'app-product-form',
@@ -12,6 +15,8 @@ import { IProduct, Product } from '../product.model';
 export class ProductFormComponent implements OnInit {
   public newProduct: IProduct = new Product('', '', 0, [], UUID.UUID());
   public isEdit: boolean = false;
+  public tags$: Observable<ITag[]> = this.tagsService.tags$;
+
   ngOnInit(): void {
     const id = this.activatedRoute.snapshot.paramMap.get('id');
 
@@ -28,11 +33,12 @@ export class ProductFormComponent implements OnInit {
   constructor(
     private router: Router,
     private productsService: ProductsService,
+    private tagsService: TagsService,
     private activatedRoute: ActivatedRoute
   ) {}
 
   public navigateBack(): void {
-    this.router.navigate(['..']);
+    this.router.navigate(['']);
   }
 
   public addProduct(): void {
@@ -43,5 +49,16 @@ export class ProductFormComponent implements OnInit {
   public updateProduct(): void {
     this.productsService.updateProduct(this.newProduct);
     this.navigateBack();
+  }
+
+  public onChange(chosenTag: ITag, isChecked: boolean): void {
+    if (isChecked) {
+      this.newProduct.tags.push(chosenTag);
+    } else {
+      this.newProduct.tags = this.newProduct.tags.filter(
+        (tag) => tag.id !== chosenTag.id
+      );
+    }
+    console.log(this.newProduct);
   }
 }

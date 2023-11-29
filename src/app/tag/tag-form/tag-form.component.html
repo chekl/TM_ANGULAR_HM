@@ -1,0 +1,16 @@
+<button mat-button  (click)="navigateBack()">Go Back</button>
+
+<form>
+    <mat-form-field>
+        <mat-label>Tag Title</mat-label>
+            <input matInput name="title" type="text" placeholder="title" [(ngModel)]="newTag.title" />
+
+    </mat-form-field>
+
+        <mat-form-field>
+        <mat-label>Tag Color</mat-label>
+    <input matNativeControl name="color"  type="color" placeholder="color" [(ngModel)]="newTag.color"/>
+
+    </mat-form-field>
+    <button mat-raised-button color="accent" (click)="isEdit ? updateTag() : addTag()">Create Tag</button>
+</form>

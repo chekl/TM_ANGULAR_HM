@@ -6,14 +6,36 @@ import { ProductDetailComponent } from './product/product-detail/product-detail.
 import { ProductFormComponent } from './product/product-form/product-form.component';
 import { AppRoutingModule } from './app-routing.module';
 import { FormsModule } from '@angular/forms';
+import { TagFormComponent } from './tag/tag-form/tag-form.component';
+import { TagListComponent } from './tag/tag-list/tag-list.component';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatButtonModule } from '@angular/material/button';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatCardModule } from '@angular/material/card';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatChipsModule } from '@angular/material/chips';
 
 @NgModule({
-  imports: [BrowserModule, AppRoutingModule, FormsModule],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    FormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
+    MatCheckboxModule,
+    BrowserAnimationsModule,
+    MatCardModule,
+    MatChipsModule,
+  ],
   declarations: [
     AppComponent,
     ProductListComponent,
     ProductDetailComponent,
     ProductFormComponent,
+    TagFormComponent,
+    TagListComponent,
   ],
   bootstrap: [AppComponent],
 })

@@ -1,8 +1,37 @@
-<button (click)="navigateBack()">Go Back</button>
+<button mat-button (click)="navigateBack()">Go Back</button>
 
-<form >
-    <input type="text" name="name" placeholder="name" [(ngModel)]="newProduct.name">
-    <input type="text" name="description" placeholder="description" [(ngModel)]="newProduct.description">
-    <input type="number"  name="price" placeholder="price" [(ngModel)]="newProduct.price">
-    <button (click)="isEdit ? updateProduct() :addProduct()">Create Product</button>
+<form>
+    <mat-form-field>
+        <mat-label>Product Name</mat-label>
+    <input matInput ="text" name="name" placeholder="name" [(ngModel)]="newProduct.name">
+
+    </mat-form-field>
+
+    <mat-form-field>
+                <mat-label>Product Description</mat-label>
+
+    <input matInput type="text"  name="description" placeholder="description" [(ngModel)]="newProduct.description">
+        
+    </mat-form-field>
+
+    <mat-form-field>
+                        <mat-label>Product Price</mat-label>
+
+            <input matInput type="number"  name="price" placeholder="price" [(ngModel)]="newProduct.price">
+
+    </mat-form-field>
+
+   
+        <ul *ngIf="(tags$ | async)?.length">
+             <li *ngFor='let tag of tags$ | async'>
+            <mat-checkbox (change)="onChange(tag, $event.checked)" [checked]="newProduct.tags.includes(tag)">
+            {{tag.title}}
+            <div [style.backgroundColor]="tag.color"></div>
+        </mat-checkbox>
+             
+        </li>   
+    </ul> 
+   
+   
+    <button mat-raised-button color="accent" (click)="isEdit ? updateProduct() : addProduct()">Create Product</button>
 </form>

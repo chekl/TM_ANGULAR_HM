@@ -12,7 +12,6 @@ import { Observable } from 'rxjs';
 })
 export class ProductListComponent {
   public products$: Observable<IProduct[]> = this.productsService.products$;
-
   constructor(
     private router: Router,
     private productsService: ProductsService
@@ -28,5 +27,9 @@ export class ProductListComponent {
 
   public navigateToDetail(id: string): void {
     this.router.navigate(['product', id]);
+  }
+
+  public navigateToTags(): void {
+    this.router.navigate(['tags']);
   }
 }
