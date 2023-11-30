@@ -5,7 +5,7 @@ import { ProductListComponent } from './product/product-list/product-list.compon
 import { ProductDetailComponent } from './product/product-detail/product-detail.component';
 import { ProductFormComponent } from './product/product-form/product-form.component';
 import { AppRoutingModule } from './app-routing.module';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TagFormComponent } from './tag/tag-form/tag-form.component';
 import { TagListComponent } from './tag/tag-list/tag-list.component';
 import { MatInputModule } from '@angular/material/input';
@@ -30,6 +30,7 @@ import { MatIconModule } from '@angular/material/icon';
     MatCardModule,
     MatChipsModule,
     MatIconModule,
+    ReactiveFormsModule,
   ],
   declarations: [
     AppComponent,

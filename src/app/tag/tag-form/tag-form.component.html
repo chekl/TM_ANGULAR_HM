@@ -5,13 +5,17 @@
 <form class="form" (ngSubmit)="isEdit ? updateTag() : addTag()">
     <mat-form-field>
         <mat-label>Tag Title</mat-label>
-        <input matInput name="title" type="text" placeholder="title" [(ngModel)]="newTag.title" />
+        <input matInput name="title" type="text" placeholder="title" [(ngModel)]="newTag.title" #title="ngModel" required maxlength="6"/>
+        <div *ngIf="title.touched">
+            <div *ngIf="title.errors?.['required']">Title is required</div>
+            <div *ngIf="title.dirty && !title.value?.trim().length">Title cannot be empty</div>
+        </div>
     </mat-form-field>
 
     <mat-form-field>
         <mat-label>Tag Color</mat-label>
-        <input matNativeControl name="color"  type="color" placeholder="color" [(ngModel)]="newTag.color"/>
+        <input matNativeControl name="color" type="color" placeholder="color" [(ngModel)]="newTag.color"/>
     </mat-form-field>
-    
-    <button mat-raised-button color="accent" type="submit">{{isEdit ? "Edit Tag" : "Create Tag"}}</button>
+
+    <button mat-raised-button color="accent" [disabled]="!title.valid || !title.value?.trim().length" type="submit">{{isEdit ? "Edit Tag" : "Create Tag"}}</button>
 </form>

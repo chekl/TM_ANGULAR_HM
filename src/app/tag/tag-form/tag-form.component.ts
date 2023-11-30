@@ -10,7 +10,7 @@ import { TagsService } from '../services/tags.service';
   styleUrl: './tag-form.component.scss',
 })
 export class TagFormComponent implements OnInit {
-  public newTag: ITag = new Tag('', '', UUID.UUID());
+  public newTag: ITag = new Tag('', '#000000', UUID.UUID());
   public isEdit: boolean = false;
 
   ngOnInit(): void {

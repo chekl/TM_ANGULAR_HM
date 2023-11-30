@@ -6,6 +6,7 @@ import { IProduct, Product } from '../product.model';
 import { TagsService } from '../../tag/services/tags.service';
 import { Observable } from 'rxjs';
 import { ITag } from '../../tag/tag.model';
+import { FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-product-form',
@@ -17,6 +18,15 @@ export class ProductFormComponent implements OnInit {
   public isEdit: boolean = false;
   public tags$: Observable<ITag[]> = this.tagsService.tags$;
 
+  public productForm = this.formBuilder.group({
+    name: [
+      this.newProduct.name,
+      [Validators.required, Validators.pattern(/[\S]/)],
+    ],
+    description: [this.newProduct.description],
+    price: [this.newProduct.price, [Validators.required, Validators.min(0)]],
+  });
+
   ngOnInit(): void {
     const id = this.activatedRoute.snapshot.paramMap.get('id');
 
@@ -26,6 +36,18 @@ export class ProductFormComponent implements OnInit {
       if (editProduct) {
         this.newProduct = editProduct;
         this.isEdit = true;
+
+        this.productForm = this.formBuilder.group({
+          name: [
+            this.newProduct.name,
+            [Validators.required, Validators.pattern(/[\S]/)],
+          ],
+          description: [this.newProduct.description],
+          price: [
+            this.newProduct.price,
+            [Validators.required, Validators.min(0)],
+          ],
+        });
       }
     }
   }
@@ -34,7 +56,8 @@ export class ProductFormComponent implements OnInit {
     private router: Router,
     private productsService: ProductsService,
     private tagsService: TagsService,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private formBuilder: FormBuilder
   ) {}
 
   public navigateBack(): void {
@@ -59,5 +82,18 @@ export class ProductFormComponent implements OnInit {
         (tag) => tag.id !== chosenTag.id
       );
     }
+  }
+
+  public onSubmit() {
+    const formValues = this.productForm.value;
+
+    this.newProduct = {
+      ...this.newProduct,
+      name: formValues.name || '',
+      description: formValues.description || '',
+      price: formValues.price || 0,
+    };
+
+    this.isEdit ? this.updateProduct() : this.addProduct();
   }
 }

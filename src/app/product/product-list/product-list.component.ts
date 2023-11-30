@@ -1,4 +1,4 @@
-import { Component, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { IProduct } from '../product.model';
 import { Router } from '@angular/router';
 import { ProductsService } from '../services/products.service';
@@ -11,13 +11,16 @@ import { ITag } from '../../tag/tag.model';
   templateUrl: './product-list.component.html',
   styleUrl: './product-list.component.scss',
 })
-export class ProductListComponent {
+export class ProductListComponent implements OnInit {
   public filterTags: string[] = [];
 
-  public filteredProducts: IProduct[] | undefined =
-    this.productsService.getFilteredProducts(this.filterTags);
+  public filteredProducts: IProduct[] | undefined = [];
 
   public tags$: Observable<ITag[]> = this.tagsService.tags$;
+
+  ngOnInit(): void {
+    this.updateProductList();
+  }
 
   constructor(
     private router: Router,
@@ -25,12 +28,16 @@ export class ProductListComponent {
     private tagsService: TagsService
   ) {}
 
-  public deleteProductById(id: string) {
-    this.productsService.deleteProductById(id);
-
+  public updateProductList(): void {
     this.filteredProducts = this.productsService.getFilteredProducts(
       this.filterTags
     );
+  }
+
+  public deleteProductById(id: string) {
+    this.productsService.deleteProductById(id);
+
+    this.updateProductList();
   }
 
   public navigateToCreate(): void {
@@ -50,8 +57,11 @@ export class ProductListComponent {
       ? (this.filterTags = this.filterTags.filter((tag) => tag !== selectedTag))
       : this.filterTags.push(selectedTag);
 
-    this.filteredProducts = this.productsService.getFilteredProducts(
-      this.filterTags
-    );
+    this.updateProductList();
+  }
+
+  public clearFilter(): void {
+    this.filterTags = [];
+    this.updateProductList();
   }
 }

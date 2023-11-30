@@ -43,8 +43,8 @@ export class ProductsService {
   }
 
   public updateProduct(updatedProduct: IProduct): void {
-    this.products.map((product) =>
-      product.id === updatedProduct.id ? (product = updatedProduct) : product
+    this.products = this.products.map((product) =>
+      product.id === updatedProduct.id ? updatedProduct : product
     );
   }
 }

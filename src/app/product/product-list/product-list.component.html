@@ -3,13 +3,12 @@
   <button mat-raised-button color="primary" (click)="navigateToCreate()">Create Product</button>
 </nav>
 
-<section *ngIf="tags$">
+<section *ngIf="(tags$ | async)?.length">
   <mat-chip-listbox multiple >
-    <mat-chip-option *ngFor="let tag of tags$ | async" [value]="tag" color="primary" (click)="toggleSelection(tag.title)">{{tag.title}}</mat-chip-option>
+    <mat-icon class="cancel-icon" fontIcon="cancel" (click)="clearFilter()"></mat-icon>
+    <mat-chip-option *ngFor="let tag of tags$ | async" [value]="tag" color="primary" (click)="toggleSelection(tag.title)" [selected]="filterTags.includes(tag.title)">{{tag.title}}</mat-chip-option>
   </mat-chip-listbox>
 </section> 
-
-
 
 <section class="list-container" *ngIf="filteredProducts?.length; else noContentBlock">
   <mat-card  *ngFor="let product of filteredProducts" > 
