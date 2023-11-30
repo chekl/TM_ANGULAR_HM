@@ -15,6 +15,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatCardModule } from '@angular/material/card';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatChipsModule } from '@angular/material/chips';
+import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
   imports: [
@@ -28,6 +29,7 @@ import { MatChipsModule } from '@angular/material/chips';
     BrowserAnimationsModule,
     MatCardModule,
     MatChipsModule,
+    MatIconModule,
   ],
   declarations: [
     AppComponent,

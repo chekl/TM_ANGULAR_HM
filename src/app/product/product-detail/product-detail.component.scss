@@ -1,0 +1,23 @@
+.card-header {
+    font-size: 18px;
+}
+
+.card-tags-list, .noTagsBlock {
+    margin: 10px 0 0 1rem;
+}
+
+.noTagsBlock {
+    width: fit-content;
+    padding: 0 3px 0 3px;
+    background: #cdcdcd;
+    color:#3e3e3e;  
+    border-radius: 5px; 
+}
+
+.card-tag {
+    border: 1px solid black;
+}
+
+.nav {
+    margin-bottom: 1rem;
+}

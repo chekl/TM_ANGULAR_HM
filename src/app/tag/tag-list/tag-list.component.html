@@ -1,13 +1,24 @@
-<button mat-button (click)="navigateToProducts()">Back to Products</button>
-<button mat-raised-button color="primary" (click)="navigateToCreate()">Create Tag</button>
+<nav class="nav">
+  <button mat-button (click)="navigateToProducts()">Back to Products</button>
+  <button mat-raised-button color="primary" (click)="navigateToCreate()">Create Tag</button> 
+</nav>
 
-<div>
-    <mat-card *ngFor="let tag of tags$ | async" > 
-        <mat-card-header>{{tag.title}}</mat-card-header>
-        <mat-card-content>{{tag.color}}</mat-card-content>
-        <mat-card-actions>
-          <button mat-button (click)="navigateToEdit(tag.id)">Edit Tag</button>
-          <button mat-button color="warn" (click)="deleteTagById(tag.id)">Delete Tag</button>
-        </mat-card-actions>
-    </mat-card>  
-</div>
+
+<section class="list-container" *ngIf="(tags$ | async)?.length; else noContentBlock">
+  <mat-card *ngFor="let tag of tags$ | async" > 
+    <mat-card-header class="card-header">{{tag.title}}</mat-card-header>
+    <mat-card-content class="card-content">
+      <div class="card-content-tag" [style.background]="tag.color"></div>
+      <p>{{tag.color}}</p>
+    </mat-card-content>
+    
+    <mat-card-actions>
+      <button mat-button (click)="navigateToEdit(tag.id)">Edit Tag</button>
+      <button mat-button color="warn" (click)="deleteTagById(tag.id)">Delete Tag</button>
+    </mat-card-actions>
+  </mat-card>  
+</section>
+
+<ng-template #noContentBlock >
+  <h2 class="noContentBlock">There are no tags</h2>
+</ng-template>

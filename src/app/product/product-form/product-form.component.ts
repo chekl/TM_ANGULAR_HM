@@ -59,6 +59,5 @@ export class ProductFormComponent implements OnInit {
         (tag) => tag.id !== chosenTag.id
       );
     }
-    console.log(this.newProduct);
   }
 }

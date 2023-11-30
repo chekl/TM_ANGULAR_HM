@@ -30,6 +30,14 @@ export class ProductsService {
     return this.products.find((product) => product.id === id);
   }
 
+  public getFilteredProducts(filters: string[]): IProduct[] | undefined {
+    return filters.length
+      ? this.products.filter((product) =>
+          product.tags.some((tag) => filters.includes(tag.title))
+        )
+      : this.products;
+  }
+
   public deleteProductById(id: string): void {
     this.products = this.products.filter((product) => product.id !== id);
   }

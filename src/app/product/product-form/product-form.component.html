@@ -1,37 +1,33 @@
-<button mat-button (click)="navigateBack()">Go Back</button>
+<nav>
+    <button mat-button (click)="navigateBack()">Go Back</button>
+</nav>
 
-<form>
+<form class="form" (ngSubmit)="isEdit ? updateProduct() : addProduct()">
     <mat-form-field>
         <mat-label>Product Name</mat-label>
-    <input matInput ="text" name="name" placeholder="name" [(ngModel)]="newProduct.name">
-
+        <input matInput ="text" name="name" placeholder="name" [(ngModel)]="newProduct.name">
     </mat-form-field>
 
     <mat-form-field>
-                <mat-label>Product Description</mat-label>
-
-    <input matInput type="text"  name="description" placeholder="description" [(ngModel)]="newProduct.description">
-        
+        <mat-label>Product Description</mat-label>
+        <input matInput type="text"  name="description" placeholder="description" [(ngModel)]="newProduct.description"> 
     </mat-form-field>
 
     <mat-form-field>
-                        <mat-label>Product Price</mat-label>
-
-            <input matInput type="number"  name="price" placeholder="price" [(ngModel)]="newProduct.price">
-
+        <mat-label>Product Price</mat-label>
+        <input matInput type="number"  name="price" placeholder="price" [(ngModel)]="newProduct.price">
     </mat-form-field>
 
-   
-        <ul *ngIf="(tags$ | async)?.length">
-             <li *ngFor='let tag of tags$ | async'>
-            <mat-checkbox (change)="onChange(tag, $event.checked)" [checked]="newProduct.tags.includes(tag)">
-            {{tag.title}}
-            <div [style.backgroundColor]="tag.color"></div>
+   <fieldset *ngIf="(tags$ | async)?.length">
+        <legend>Choose tags</legend>
+
+        <mat-checkbox *ngFor='let tag of tags$ | async' (change)="onChange(tag, $event.checked)" [checked]="newProduct.tags.includes(tag)">
+            <div class="checkbox-label">
+                <p class="checkbox-label-title">{{tag.title}}</p>
+                <div [style.backgroundColor]="tag.color" class="tag"></div>
+            </div>
         </mat-checkbox>
-             
-        </li>   
-    </ul> 
+    </fieldset> 
    
-   
-    <button mat-raised-button color="accent" (click)="isEdit ? updateProduct() : addProduct()">Create Product</button>
+    <button type="submit" mat-raised-button color="accent">{{isEdit ? "Edit Product" : "Create Product"}}</button>
 </form>

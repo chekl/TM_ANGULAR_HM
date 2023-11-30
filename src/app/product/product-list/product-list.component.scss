@@ -1,0 +1,27 @@
+.list-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+    margin: 1rem 0 1rem;
+}
+
+.nav {
+    display: flex;
+    gap: 1em;
+    margin-bottom: 1rem;
+}
+
+.card-header {
+    font-size: 18px;
+}
+
+.card-content {
+    display: flex;
+    flex-direction: column;
+    margin-top: 1rem;
+}
+
+.noContentBlock {
+    margin-top: 2rem;
+    text-align: center;
+}
